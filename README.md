@@ -40,7 +40,7 @@ I hope you enjoy this library. You can see a live demo of the php version at [ht
 ### Setup
 
 1. Ensure you have a web server with PHP support (e.g., Apache).
-2. Place the `index.html`, `Random_Verses_api.php`, and `verses.json` files in your web server's root directory.
+2. Place all files in your web server's directory.
 
 ### Endpoints
 
@@ -65,7 +65,7 @@ I hope you enjoy this library. You can see a live demo of the php version at [ht
 ### Setup
 
 1. Ensure you have a web server with Node support.
-2. Place the `nodeIndex.html`, and `verses.json` files in a server directory.
+2. Place all files in a server directory.
 3. Run `npm install` to install the required dependencies.
 4. Run `npm run server` to start the server.
 
