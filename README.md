@@ -26,6 +26,8 @@ I hope soon this library will have the full bible, possibly several versions of 
 
 I hope you enjoy this library. You can see a live demo of the php version at [https://joelemason.com/bible_verses/](https://joelemason.com/bible_verses/)
 
+(The project will be better organized in the future.)
+
 ## Table of Contents
 
 - [PHP Version](#php-version)
