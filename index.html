@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Verses API</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+/* General Styles */
+/* General Body Styles */
+body {
+    background-color: #121212; /* Dark mode background */
+    color: #e0e0e0; /* Dark mode text color */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark and Light Mode Styles */
+.dark-mode {
+    background-color: black; /* Dark mode background */
+    color: #e0e0e0; /* Dark mode text color */
+}
+
+.light-mode {
+    background-color: #ffffff; /* Light mode background */
+    color: #000000; /* Light mode text color */
+}
+
+/* Container Styles */
+.container {
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ffffff; /* Default border color for dark mode */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.dark-mode .container {
+    background-color: black; /* Dark mode container background */
+    border-color: #ffffff; /* Dark mode border color */
+}
+
+.light-mode .container {
+    background-color: #ffffff; /* Light mode container background */
+    border-color: #000000; /* Light mode border color */
+}
+
+/* Card Styles */
+.result-card, .all-verses {
+    margin-top: 20px;
+}
+
+.card {
+    border: 1px solid #007bff; /* Default border color */
+    background-color: #1e1e1e; /* Default dark mode background */
+    position: relative; /* For positioning the ID */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e; /* Dark mode card background */
+    color: #e0e0e0; /* Dark mode text color */
+}
+
+.light-mode .card {
+    background-color: #ffffff; /* Light mode card background */
+    color: #000000; /* Light mode text color */
+}
+
+/* Card Title and Text Styles */
+.card-title {
+    color: #007bff; /* Default color for card titles */
+}
+
+.dark-mode .card-title {
+    color: #007bff; /* Dark mode card title color */
+}
+
+.light-mode .card-title {
+    color: #000000; /* Light mode card title color */
+}
+
+.card-text {
+    color: #e0e0e0; /* Default dark mode card text color */
+}
+
+.dark-mode .card-text {
+    color: #e0e0e0; /* Dark mode card text color */
+}
+
+.light-mode .card-text {
+    color: #000000; /* Light mode card text color */
+}
+
+/* Card ID Styles */
+.card-id {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for readability */
+    color: #000000; /* Default text color */
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-family: Arial, sans-serif;
+}
+
+.dark-mode .card-id {
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background for readability */
+    color: #ffffff; /* Light text color */
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Mode Toggle Button */
+#modeToggleBtn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #ffffff;
+    padding: 7px 15px; /* Adjusted height */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: height 0.3s;
+}
+
+#modeToggleBtn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    #modeToggleBtn {
+        padding: 5px 10px; /* 30% shorter height on mobile */
+    }
+}
+
+/* Example Response Styles */
+pre, code {
+    transition: color 0.3s;
+    white-space: pre-wrap; /* Wrap long lines */
+    overflow: auto; /* Add scrollbars if necessary */
+}
+
+.example-response {
+    color: #e0e0e0; /* Default dark mode color */
+}
+
+.dark-mode .example-response {
+    color: #e0e0e0; /* Dark mode text color */
+}
+
+.light-mode .example-response {
+    color: #000000; /* Light mode text color */
+}
+
+.codeRed {
+    color: rgba(255, 0, 0, 0.7); /* Slightly lighter red for dark mode */
+}
+
+.light-mode .codeRed {
+    color: red; /* Full red for light mode */
+}
+
+    </style>
+</head>
+<body class="dark-mode">
+    <button id="modeToggleBtn">Toggle Light Mode</button>
+    <div class="container">
+        <h1 class="text-center text-primary">Bible Verses API</h1>
+        <p class="text-center">Welcome to the Bible Verses API! This API provides random notable Bible verses in JSON format.</p>
+        <p class="text-center">To use this API, make HTTP GET requests to the following endpoints:</p>
+        
+<div class="api-endpoints">
+    <h2>API Endpoints</h2>
+    <ul class="list-unstyled">
+        <li>
+            <strong>Get a Random Verse</strong>
+            <br>
+            <code class="codeRed">GET /Random_Verses_api.php</code>
+            <p>Returns a random Bible verse.</p>
+        </li>
+        <li>
+            <strong>Get a Specific Verse by ID</strong>
+            <br>
+            <code class="codeRed">GET /Random_Verses_api.php?id={id}</code>
+            <p>Returns a specific Bible verse based on the provided ID.</p>
+        </li>
+        <li>
+            <strong>Get a Specific Verse by Book, Chapter, and Verse</strong>
+            <br>
+            <code class="codeRed">GET /Random_Verses_api.php?book={book}&chapter={chapter}&verse={verse}</code>
+            <p>Returns a specific Bible verse based on the provided book, chapter, and verse.</p>
+        </li>
+        <li>
+            <strong>Plain Text Format</strong>
+            <br>
+            <p>To receive the verse in plain text format (with each piece of data on a new line), add the "<code class="codeRed">format=plain</code>" query parameter to any of the above requests.</p>
+        </li>
+    </ul>
+</div>
+
+        
+        <p class="example-response">Example responses:</p>
+        <pre class="example-response"><code></code></pre>
+
+        <div class="test-form">
+            <h2>Test the API</h2>
+            <form id="apiForm">
+                <div class="form-group">
+                    <label for="verseId">Enter Verse ID (optional):</label>
+                    <input type="text" class="form-control" id="verseId" name="verseId">
+                </div>
+                <button type="submit" class="btn btn-primary">Get Verse</button>
+            </form>
+            <div id="result" class="result-card"></div>
+        </div>
+
+        <div class="dynamic-card">
+            <h2 class="text-center">Get a Random Verse</h2>
+            <button id="randomVerseBtn" class="btn btn-primary btn-block">Show Random Verse</button>
+            <div id="randomVerseCard" class="result-card"></div>
+        </div>
+
+        <div class="all-verses">
+            <h2>All Verses</h2>
+            <button id="showAllVersesBtn" class="btn btn-secondary btn-block">Show All Verses</button>
+            <div id="allVersesList" class="mt-3"></div>
+        </div>
+
+        <p class="text-center">We hope you find this API useful for your projects. If you have any questions or feedback, please contact us.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Toggle light and dark mode
+        document.getElementById('modeToggleBtn').addEventListener('click', function() {
+            var isDarkMode = document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode', !isDarkMode);
+            this.textContent = isDarkMode ? 'Toggle Light Mode' : 'Toggle Dark Mode';
+        });
+        
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to fetch a random verse and update the example response
+    function setExampleResponse() {
+        fetch('Random_Verses_api.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Find the code element within the example-response class
+                const codeElement = document.querySelector('.example-response code');
+
+                if (data.error) {
+                    codeElement.textContent = `Error: ${data.error}`;
+                } else {
+                    // Format the response data as JSON and set it as the content
+                    codeElement.textContent = JSON.stringify(data, null, 4);
+                }
+            })
+            .catch(error => {
+                const codeElement = document.querySelector('.example-response code');
+                codeElement.textContent = `Error fetching the example response: ${error.message}`;
+            });
+    }
+
+    // Call the function on page load
+    setExampleResponse();
+});
+
+document.getElementById('apiForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var verseId = document.getElementById('verseId').value;
+    var url = 'Random_Verses_api.php';
+    if (verseId) {
+        url += '?id=' + verseId;
+    }
+    
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var resultDiv = document.getElementById('result');
+            if (data.error) {
+                resultDiv.innerHTML = `<div class="alert alert-danger" role="alert">${data.error}</div>`;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-id">id = ${data.id}</div>
+                            <h5 class="card-title">${data.book} ${data.chapter}:${data.verse}</h5>
+                            <p class="card-text">${data.text}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    Error fetching the verse. ${error.message}
+                </div>
+            `;
+        });
+});
+
+document.getElementById('randomVerseBtn').addEventListener('click', function() {
+    var url = 'Random_Verses_api.php';
+    
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var resultDiv = document.getElementById('randomVerseCard');
+            if (data.error) {
+                resultDiv.innerHTML = `<div class="alert alert-danger" role="alert">${data.error}</div>`;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-id">id = ${data.id}</div>
+                            <h5 class="card-title">${data.book} ${data.chapter}:${data.verse}</h5>
+                            <p class="card-text">${data.text}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            var resultDiv = document.getElementById('randomVerseCard');
+            resultDiv.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    Error fetching the verse. ${error.message}
+                </div>
+            `;
+        });
+});
+
+document.getElementById('showAllVersesBtn').addEventListener('click', function() {
+    var url = 'Random_Verses_api.php?all=true';
+    
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var resultDiv = document.getElementById('allVersesList');
+            if (Array.isArray(data)) {
+                var versesHtml = data.map(verse => `
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="card-id">id = ${verse.id}</div>
+                            <h5 class="card-title">${verse.book} ${verse.chapter}:${verse.verse}</h5>
+                            <p class="card-text">${verse.text}</p>
+                        </div>
+                    </div>
+                `).join('');
+                resultDiv.innerHTML = versesHtml;
+            } else {
+                resultDiv.innerHTML = '<div class="alert alert-warning" role="alert">No verses found.</div>';
+            }
+        })
+        .catch(error => {
+            var resultDiv = document.getElementById('allVersesList');
+            resultDiv.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    Error fetching verses. ${error.message}
+                </div>
+            `;
+        });
+});
+    </script>
+</body>
+</html>
