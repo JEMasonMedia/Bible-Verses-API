@@ -24,7 +24,7 @@ When I get some time I am going to add a version in Python using Flask.
 
 I hope soon this library will have the full bible, possibly several versions of the bible, which would be selectable by the user.
 
-I hope you enjoy this library. You can see a live demo of the php version at [https://joelemason.com/bible_verses/](https://joelemason.com/bible_verses/){:target="\_blank"}
+I hope you enjoy this library. You can see a live demo of the PHP version at <a href="https://joelemason.com/bible_verses/" target="_blank">https://joelemason.com/bible_verses/</a>. The Node.js version is essentially identical.
 
 (The project will be better organized in the future.)
 
