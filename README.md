@@ -28,15 +28,6 @@ I hope you enjoy this library. You can see a live demo of the php version at [ht
 
 (The project will be better organized in the future.)
 
-## Table of Contents
-
-- [PHP Version](#php-version)
-  - [Setup](#setup)
-  - [Endpoints](#endpoints)
-- [Node.js Version](#nodejs-version)
-  - [Setup](#setup-1)
-  - [Endpoints](#endpoints-1)
-
 ## PHP Version
 
 ### Setup
